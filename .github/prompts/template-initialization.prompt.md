@@ -1,3 +1,9 @@
+---
+name: Template Initialization
+description: Automate project initialization from template-ts by driving the interactive script non-interactively. The script features intelligent defaults auto-detection from git config and environment, skills discovery based on project context, and automatic installation of specify tools for GitHub Copilot.
+argument-hint: Project description and optional parameters for initializing a new project from template-ts.
+---
+
 # Template Initialization
 
 Automate project initialization from template-ts by driving the interactive script non-interactively. The script features intelligent defaults auto-detection from git config and environment, skills discovery based on project context, and automatic installation of specify tools for GitHub Copilot.
