@@ -1,8 +1,8 @@
 # Feature Specification: LSP Proxy Core with Plugin System
 
-**Feature Branch**: `001-lsp-proxy-core`  
-**Created**: 2026-01-31  
-**Status**: Draft  
+**Feature Branch**: `001-lsp-proxy-core`
+**Created**: 2026-01-31
+**Status**: Draft
 **Input**: User description: "build a LSP proxy client/server with plugin/extensibility support for use cases like multi-language document (embedding of text in one language into another), scaffolding additional capabilities onto a lsp server (e.g. syntax highlighting for an LSP server that doesn't support it)"
 
 ## Clarifications

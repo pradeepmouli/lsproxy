@@ -43,7 +43,7 @@
 - Out-of-scope boundaries preventing scope creep
 - Eight edge cases identified with proposed handling strategies
 
-**Key Update**: 
+**Key Update**:
 - **FR-001** now specifies lspeasy as the foundation for LSP message handling, serialization, and protocol compliance
 - **Assumption #1** explicitly states lspeasy dependency and its benefits (type safety, protocol compliance, best practices)
 
