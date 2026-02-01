@@ -1,8 +1,8 @@
-<!-- 
+<!--
   SYNC IMPACT REPORT
   ==================
   Version Change: Initial → 1.0.0 (MINOR: Project constitution established)
-  
+
   Principles Defined:
   - I. Modularity First
   - II. Type Safety (TypeScript)
@@ -11,18 +11,18 @@
   - V. Pluggability & Configuration
   - VI. Observability & Debugging
   - VII. Semantic Versioning
-  
+
   Additional Sections:
   - Technology Stack
   - LSP Proxy Specifics
   - Development Workflow
   - Governance Process
-  
+
   Templates Requiring Updates:
   - .specify/templates/plan-template.md: Add LSP-specific technical context ⚠ pending
   - .specify/templates/spec-template.md: Add LSP protocol requirements section ⚠ pending
   - .specify/templates/tasks-template.md: Add LSP-specific foundational tasks ⚠ pending
-  
+
   Affected Documentation:
   - README.md: May reference constitution principles ✅ reviewed
   - CONTRIBUTING.md: Aligns with TDD + code quality ✅ reviewed
@@ -84,18 +84,18 @@ automated.
 
 ## Technology Stack
 
-**Runtime**: Node.js ≥ 20.0.0  
-**Language**: TypeScript 5.x (strict mode mandatory)  
-**Package Manager**: pnpm ≥ 10.0.0 (workspaces enforced)  
-**Linting**: oxlint with oxlintrc.json  
-**Formatting**: oxfmt with .oxfmtrc.json (2-space indentation)  
-**Testing**: vitest with coverage (target ≥80%)  
-**Logging**: pino (structured JSON logs)  
-**Configuration**: dotenvx + Zod validation  
-**HTTP/WebSocket**: ws library for protocol transport  
-**Build**: TypeScript compiler (tsgo/native transpile)  
-**Versioning**: changesets + semantic versioning  
-**CI/CD**: GitHub Actions with workflow automation  
+**Runtime**: Node.js ≥ 20.0.0
+**Language**: TypeScript 5.x (strict mode mandatory)
+**Package Manager**: pnpm ≥ 10.0.0 (workspaces enforced)
+**Linting**: oxlint with oxlintrc.json
+**Formatting**: oxfmt with .oxfmtrc.json (2-space indentation)
+**Testing**: vitest with coverage (target ≥80%)
+**Logging**: pino (structured JSON logs)
+**Configuration**: dotenvx + Zod validation
+**HTTP/WebSocket**: ws library for protocol transport
+**Build**: TypeScript compiler (tsgo/native transpile)
+**Versioning**: changesets + semantic versioning
+**CI/CD**: GitHub Actions with workflow automation
 
 **Deprecation Policy**: Runtime versions older than 2 releases behind are unsupported.
 Dependency updates automatic for patch/minor; majors require explicit decision.
