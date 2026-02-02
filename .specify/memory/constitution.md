@@ -88,7 +88,7 @@ automated.
 **Language**: TypeScript 5.x (strict mode mandatory)
 **Package Manager**: pnpm ≥ 10.0.0 (workspaces enforced)
 **Linting**: oxlint with oxlintrc.json
-**Formatting**: oxfmt with .oxfmtrc.json (2-space indentation)
+**Formatting**: oxfmt with .oxfmtrc.json (2-tab indentation)
 **Testing**: vitest with coverage (target ≥80%)
 **Logging**: pino (structured JSON logs)
 **Configuration**: dotenvx + Zod validation
@@ -125,24 +125,107 @@ delivered in order (no reordering). Response timeouts configurable per method.
 
 ## Development Workflow
 
-1. **Planning Phase**: Write spec in `/specs/[###]/spec.md` with user stories and
+### Core Workflow (Feature Development)
+
+1. **Specification Phase**: Write spec in `/specs/[###]/spec.md` with user stories and
    acceptance criteria. Each story is independently implementable and testable.
+   Use `/speckit.specify` to initiate.
 
-2. **Design Phase**: Create plan in `/specs/[###]/plan.md` covering architecture,
+2. **Clarification Phase** (as needed): Resolve ambiguities via `/speckit.clarify`.
+
+3. **Design Phase**: Create plan in `/specs/[###]/plan.md` covering architecture,
    dependencies, and technical approach. Constitution Check GATE: verify alignment
-   with principles I–VII above.
+   with principles I–VII above. Use `/speckit.plan`.
 
-3. **Implementation Phase**: Create tasks in `/specs/[###]/tasks.md` organized by
-   user story. Each task is atomic and can be reviewed independently.
+4. **Task Breakdown**: Create tasks in `/specs/[###]/tasks.md` organized by
+   user story. Each task is atomic and can be reviewed independently. Use `/speckit.tasks`.
 
-4. **Code Review**: Every PR verified against constitution (TDD, type safety, protocol
+5. **Implementation Phase**: Execute tasks in order via `/speckit.implement`.
+
+6. **Code Review**: Every PR verified against constitution (TDD, type safety, protocol
    compliance, test coverage, logging). Use `/speckit.review` for automated checks.
 
-5. **Testing Gate**: All tests passing. Coverage reports attached to PR. Integration
+7. **Testing Gate**: All tests passing. Coverage reports attached to PR. Integration
    tests for cross-package changes.
 
-6. **Release**: Changesets CLI creates version bump + changelog entry. GitHub Actions
+8. **Release**: Changesets CLI creates version bump + changelog entry. GitHub Actions
    auto-tags and publishes to npm. Pre-release versions tagged `@next`.
+
+### Extension Workflows
+
+- **Baseline** (`/speckit.baseline`): Project context establishment—generates baseline-spec.md + current-state.md
+- **Bugfix** (`/speckit.bugfix "<description>"`): Defect remediation—generates bug-report.md + tasks.md with regression test requirement
+- **Enhancement** (`/speckit.enhance "<description>"`): Minor improvements—condensed single-document workflow with max 7-task plan
+- **Modification** (`/speckit.modify <feature_num> "<description>"`): Feature changes—generates modification.md + impact analysis + tasks.md
+- **Refactor** (`/speckit.refactor "<description>"`): Code quality improvements—generates refactor.md + baseline metrics + incremental tasks.md
+- **Hotfix** (`/speckit.hotfix "<incident>"`): Emergency production issues—expedited tasks.md + post-mortem.md (within 48 hours)
+- **Deprecation** (`/speckit.deprecate <feature_num> "<reason>"`): Feature sunset—generates deprecation.md + dependency scan + phased tasks.md
+- **Review** (`/speckit.review <task_id>`): Implementation verification—checks against spec + updates tasks.md + generates report
+
+### Workflow Selection
+
+Development activities SHALL use the appropriate workflow type based on the nature of the work. Each workflow enforces specific quality gates and documentation requirements tailored to its purpose:
+
+- **Baseline**: Project context establishment—requires comprehensive documentation of existing architecture and change tracking
+- **Feature Development** (`/speckit.specify`): New functionality—requires full specification, planning, and TDD approach
+- **Bug Fixes** (`/speckit.bugfix`): Defect remediation—requires regression test BEFORE applying fix
+- **Enhancements** (`/speckit.enhance`): Minor improvements to existing features—streamlined single-document workflow with simple single-phase plan (max 7 tasks)
+- **Modifications** (`/speckit.modify`): Changes to existing features—requires impact analysis and backward compatibility assessment
+- **Refactoring** (`/speckit.refactor`): Code quality improvements—requires baseline metrics, behavior preservation guarantee, and incremental validation
+- **Hotfixes** (`/speckit.hotfix`): Emergency production issues—expedited process with deferred testing and mandatory post-mortem
+- **Deprecation** (`/speckit.deprecate`): Feature sunset—requires phased rollout (warnings → disabled → removed), migration guide, and stakeholder approvals
+
+**Workflow Constraints**: The wrong workflow SHALL NOT be used. Features must not bypass specification; bugs must not skip regression tests; refactorings must not alter behavior; and enhancements requiring complex multi-phase plans must use full feature development workflow instead.
+
+### Quality Gates by Workflow
+
+**Baseline**:
+- Comprehensive project analysis MUST be performed
+- All major components MUST be documented in baseline-spec.md
+- Current state MUST enumerate all changes by workflow type
+- Architecture and technology stack MUST be accurately captured
+
+**Feature Development**:
+- Specification MUST be complete before planning
+- Plan MUST pass constitution checks before task generation
+- Tests MUST be written before implementation (TDD)
+- Code review MUST verify constitution compliance
+
+**Bugfix**:
+- Bug reproduction MUST be documented with exact steps
+- Regression test MUST be written before fix is applied
+- Root cause MUST be identified and documented
+- Prevention strategy MUST be defined
+
+**Enhancement**:
+- Enhancement MUST be scoped to a single-phase plan with no more than 7 tasks
+- Changes MUST be clearly defined in the enhancement document
+- Tests MUST be added for new behavior
+- If complexity exceeds single-phase scope, full feature workflow MUST be used instead
+
+**Modification**:
+- Impact analysis MUST identify all affected files and contracts
+- Original feature spec MUST be linked
+- Backward compatibility MUST be assessed
+- Migration path MUST be documented if breaking changes
+
+**Refactor**:
+- Baseline metrics MUST be captured before any changes unless explicitly exempted
+- Tests MUST pass after EVERY incremental change
+- Behavior preservation MUST be guaranteed (tests unchanged)
+- Target metrics MUST show measurable improvement unless explicitly exempted
+
+**Hotfix**:
+- Severity MUST be assessed (P0/P1/P2)
+- Rollback plan MUST be prepared before deployment
+- Fix MUST be deployed and verified before writing tests (exception to TDD)
+- Post-mortem MUST be completed within 48 hours of resolution
+
+**Deprecation**:
+- Dependency scan MUST be run to identify affected code
+- Migration guide MUST be created before Phase 1
+- All three phases MUST complete in sequence (no skipping)
+- Stakeholder approvals MUST be obtained before starting
 
 **Branch Strategy**: Gitflow with feature branches (`feat/`, `fix/`, `chore/`).
 Conventional commits required. Pre-commit hooks run oxlint and oxfmt.
