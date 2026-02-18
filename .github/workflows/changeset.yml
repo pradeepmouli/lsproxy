@@ -38,8 +38,7 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 8
+        # Version read from packageManager in package.json
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -131,6 +130,7 @@ jobs:
           ---
           "@company/core": ${CHANGE_TYPE}
           "@company/utils": ${CHANGE_TYPE}
+          "@company/test-utils": ${CHANGE_TYPE}
           ---
 
           $(cat /tmp/changelog_content.txt)
