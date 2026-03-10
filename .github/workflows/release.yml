@@ -71,7 +71,7 @@ jobs:
           commit: 'chore: version packages'
           title: 'chore: version packages'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           # NPM_TOKEN is optional when using trusted publishers
           # If not using trusted publishers, set NPM_TOKEN in repository secrets
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -81,7 +81,7 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           tag_name: v${{ fromJson(steps.changesets.outputs.publishedPackages)[0].version }}
           release_name: v${{ fromJson(steps.changesets.outputs.publishedPackages)[0].version }}
